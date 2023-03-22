@@ -10,20 +10,23 @@ namespace Lab1Console.Classes
     {
         //This class implements the third prinsiple from SOLID. (L): Liskov Substitution 
         private static int numberRevenueInvoice = 0;
-        public Reporting(Warehouse product)
-            : base(product.Name, product.UnitOfMeasurement, product.Price, product.Count, product.Date) { }
+        public Reporting(Warehouse warehouse)
+            : base(warehouse.Name, warehouse.UnitOfMeasurement, warehouse.Price, warehouse.Count, warehouse.Date) { }
 
         public string RevenueInvoice(string fullNameSender, string fullNameReceiver)
         {
             numberRevenueInvoice += 1;
+            string allSum = "";
+            if (Price is Money)
+                allSum = $"Загальна сума: {((Money)Price).Sum(this.Count)}";
             return $"{Date} №{numberRevenueInvoice}\n" +
                 $"-------------------------------\n" +
                 $"Ім'я товару: {Name} \nОдиниця виміру: {UnitOfMeasurement} \nЦіна за 1 {UnitOfMeasurement}: {Price.WholeMoney}" +
                 $",{Price.Coins} \nКількість: {Count} \nДата останнього завозу: {Date} \n" +
                 $"-------------------------------\n" +
                 $"Відправник: {fullNameSender}" +
-                $"\nОтримувач: {fullNameReceiver}\n" +
-                $"Загальна сума: {Price.Sum(this)}";
+                $"\nОтримувач: {fullNameReceiver}\n" + allSum;
+            
         }
 
         public string SalesInvoice(string fullNameSender, string fullNameReceiver)

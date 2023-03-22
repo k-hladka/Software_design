@@ -8,23 +8,25 @@ namespace Lab1Console.Classes
 {
     public class Product
     {
-        public static void ReductionPrice(Money money, int countWholeMoney, int countCoins)
+        public static int[] ReductionPrice(int oldWholeMoney, int oldCoins, int countWholeMoney, int countCoins)
         {
-            if(money.Coins<countCoins && money.WholeMoney - 1 >= countWholeMoney)
+            if(oldCoins < countCoins && oldWholeMoney - 1 >= countWholeMoney)
             {
-                money.WholeMoney -= 1;
-                money.Coins = money.Coins + 100 - countCoins;
-                money.WholeMoney -= countWholeMoney;
+                oldWholeMoney -= 1;
+                oldCoins = oldCoins + 100 - countCoins;
+                oldWholeMoney -= countWholeMoney;
             }
-            else if(money.WholeMoney < countWholeMoney)
+            else if(oldWholeMoney < countWholeMoney)
             {
                 throw new Exception("Помилка! Перевірте корректність написання даних");
             }
             else
             {
-                money.WholeMoney -= countWholeMoney;
-                money.Coins -= countCoins;
+                oldWholeMoney -= countWholeMoney;
+                oldCoins -= countCoins;
             }
+            int[] arr = new int[2] { oldWholeMoney, oldCoins };
+            return arr;
         }
     }
 }

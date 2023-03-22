@@ -8,14 +8,17 @@ namespace Lab1Console.Classes
 {
     public class Warehouse 
     {
-        //This class implements the first prinsiple from SOLID. (S): Single Responsibility 
+        //This class implements:
+        //(S): Single Responsibility
+        //and
+        //(D): Dependency Inversion
         public string Name { get; set;}
         public string UnitOfMeasurement { get; set;}
-        public Money Price { get; set;}
+        public IMoney Price { get; set;}
         public int Count { get; set;}
         public string Date { get; set; }
 
-        public Warehouse(string Name, string UnitOfMeasurement, Money Price, int Count, string Date)
+        public Warehouse(string Name, string UnitOfMeasurement, IMoney Price, int Count, string Date)
         {
             this.Name = Name;
             this.UnitOfMeasurement = UnitOfMeasurement;

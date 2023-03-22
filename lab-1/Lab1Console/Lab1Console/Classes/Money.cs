@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace Lab1Console.Classes
 {
-    public class Money
-    {   
+    public class Money : IMoney
+    {
         private int wholeUSD;
         private int wholeEUR;
         private int wholeUAN;
@@ -15,34 +15,37 @@ namespace Lab1Console.Classes
         private int coinsUSD;
         private int coinsEUR;
         private int coinsUAN;
-
-        public int WholeMoney { get; set;}
-        public int Coins { get; set;}
-        public Money(string currencyName, int wholeMoney, int coins)
+        public int WholeMoney { get; set; }
+        public int Coins { get; set; }
+        public void AddUSD(int wholeUSD, int coinsUSD)
         {
-            this.WholeMoney = wholeMoney;
-            this.Coins = coins;
-            switch (currencyName)
-            {
-                case "USD":
-                    this.wholeUSD = wholeMoney;
-                    this.coinsUSD = coins;
-                    break;
-                case "EUR":
-                    this.wholeEUR = wholeMoney;
-                    this.coinsEUR = coins;
-                    break;
-                case "UAN":
-                    this.wholeUAN = wholeMoney;
-                    this.coinsUAN = coins;
-                    break;
-            }
+            this.wholeUSD = wholeUSD;
+            this.coinsUSD = coinsUSD;
+            addValuesInProperties(wholeUSD, coinsUSD);
+        }
+        public void AddEUR(int wholeEUR, int coinsEUR)
+        {
+            this.wholeEUR = wholeEUR;
+            this.coinsEUR = coinsEUR;
+            addValuesInProperties(wholeEUR, coinsEUR);
+        }
+        public void AddUAN(int wholeUAN, int coinsUAN)
+        {
+            this.wholeUAN = wholeUAN;
+            this.coinsUAN = coinsUAN;
+            addValuesInProperties(wholeUAN, coinsUAN);
         }
 
-        public decimal Sum(Warehouse product) //This method implements the first prinsiple from SOLID. (S): Single Responsibility
+        private void addValuesInProperties(int whole, int coins)
         {
-            decimal coinsInDecimal = product.Price.Coins / (decimal)Math.Pow(10, CountDigits(product.Price.Coins));
-            decimal resultWholeMoney = (product.Price.WholeMoney + coinsInDecimal) * product.Count;
+            this.WholeMoney = whole;
+            this.Coins = coins;
+        }
+
+        public decimal Sum(int count)
+        {
+            decimal coinsInDecimal = this.Coins / (decimal)Math.Pow(10, CountDigits(this.Coins));
+            decimal resultWholeMoney = (this.WholeMoney + coinsInDecimal) * count;
 
             int CountDigits(int number)
             {
